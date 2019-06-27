@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-${hello }
+더블류비에스
 </body>
 </html>

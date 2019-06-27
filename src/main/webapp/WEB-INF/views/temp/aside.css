@@ -1,0 +1,12 @@
+.login {
+    margin: 0px;
+    width: 50%;
+    height: 100px;
+    background-color: white;
+    float : left;
+    clear: both;
+}
+
+.login > input {
+    width: 100%;
+}

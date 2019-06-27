@@ -1,0 +1,16 @@
+.login {
+    margin: 0px;
+    width: 50%;
+    height: 100px;
+    float : left;
+    clear: both;
+    padding-left: 10px;
+}
+
+.login > div {
+    background-color: white;
+}
+
+.login > input {
+    width: 100%;
+}
