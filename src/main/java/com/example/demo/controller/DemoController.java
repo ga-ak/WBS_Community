@@ -17,14 +17,17 @@ public class DemoController {
 
 	@Autowired
 	DemoService service;
-	
-	@RequestMapping("/demo.do")
-	public ModelAndView demo(HttpServletRequest req, HttpServletResponse resp) {
-		ModelAndView mav = new ModelAndView();
-		
-		List<String> idList = service.selectAllId();
-		mav.addObject("idList", idList);
-		mav.setViewName("demo");
-		return mav;
+
+	@RequestMapping("/main.do")
+	public String mainPage () {
+		System.out.println(service.selectAllId());
+		return "main";
 	}
+
+//	@RequestMapping("/board/*.do")
+//	public String boardPage(HttpServletRequest req, HttpServletResponse resp) {
+//		String targetPage = "/board/";
+//		System.out.println(targetPage);
+//		return targetPage;
+//	}
 }
