@@ -6,4 +6,9 @@
 		SELECT id
 		FROM t_member
 	</select>
+
+	<select id="selectAllRep" resultType="java.util.HashMap">
+		SELECT *
+		FROM reply_test
+	</select>
 </mapper>
