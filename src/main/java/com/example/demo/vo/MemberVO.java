@@ -11,7 +11,7 @@ public class MemberVO {
     private String member_email;
     private String member_phone;
     private int member_gender;
-    private int member_idDeleted;
+    private int member_isDeleted;
     private LocalDateTime member_created_date;
     private LocalDateTime member_changed_date;
 
@@ -72,12 +72,12 @@ public class MemberVO {
         this.member_gender = member_gender;
     }
 
-    public int getMember_idDeleted() {
-        return member_idDeleted;
+    public int getMember_isDeleted() {
+        return member_isDeleted;
     }
 
-    public void setMember_idDeleted(int member_idDeleted) {
-        this.member_idDeleted = member_idDeleted;
+    public void setMember_isDeleted(int member_isDeleted) {
+        this.member_isDeleted = member_isDeleted;
     }
 
     public LocalDateTime getMember_created_date() {
@@ -98,6 +98,6 @@ public class MemberVO {
 
     @Override
     public String toString() {
-        return member_no+" | "+member_id;
+        return member_no+" | "+member_id+" | "+member_pw+" | "+member_nick+" | "+member_email+" | "+member_phone+" | "+member_gender+" | "+member_isDeleted+" | "+member_created_date+" | "+member_changed_date;
     }
 }
