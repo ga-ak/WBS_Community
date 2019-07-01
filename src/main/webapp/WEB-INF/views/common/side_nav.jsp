@@ -9,13 +9,14 @@
 </head>
 <body>
     <ul class="bbs_list">
-        <a href="/demo/main.do"><li>메인화면</li></a>
-        <a href="/demo/board/1.do"><li>자유게시판</li></a>
-        <a href="/demo/board/2.do"><li>팀일정관리</li></a>
-        <a href="/demo/rep.do"><li>댓글테스트</li></a>
-        <a href="/demo/board/4.do"><li>김정우</li></a>
-        <a href="/demo/board/5.do"><li>김철호</li></a>
-        <a href="/demo/board/6.do"><li>오성옥</li></a>
+        <a href="main.do"><li>메인화면</li></a>
+        <a href="memberList.do"><li>회원목록</li></a>
+        <a href="#"><li>자유게시판</li></a>
+        <a href="#"><li>댓글</li></a>
+        <a href="#"><li>강동화</li></a>
+        <a href="#"><li>김정우</li></a>
+        <a href="#"><li>김철호</li></a>
+        <a href="#"><li>오성옥</li></a>
     </ul>
 </body>
 </html>

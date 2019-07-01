@@ -1,13 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.model.DemoMapper;
+import java.lang.reflect.Array;
+import java.util.*;
+
+import com.example.demo.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Stack;
+import com.example.demo.model.DemoMapper;
 
 @Service
 public class DemoService {
@@ -19,11 +19,11 @@ public class DemoService {
 		return mapper.selectAllId();
 	}
 
-	public List<HashMap> selectAllRep() {
+	public List<HashMap<String, Integer>> selectAllRep() {
 
-		List<HashMap> result = new ArrayList<>();
-		List<HashMap> oriArray = mapper.selectAllRep();
-		Stack<HashMap> stack = new Stack<>();
+		List<HashMap<String, Integer>> result = new ArrayList<>();
+		List<HashMap<String, Integer>> oriArray = mapper.selectAllRep();
+		Stack<HashMap<String, Integer>> stack = new Stack<>();
 
 		System.out.println(oriArray);
 
@@ -31,7 +31,7 @@ public class DemoService {
 		// 부모 댓글만 모두 stack 에 담아준다
 		for (int i = oriArray.size() - 1; i >= 0; i--) {
 			HashMap thisRep = oriArray.get(i);
-			if (thisRep.get("rep_pid") == null) {
+			if (thisRep.get("rep_parent") == null) {
 				stack.push(thisRep);
 				oriArray.remove(i);
 			}
@@ -41,12 +41,12 @@ public class DemoService {
 
 		while (stack.size() > 0) {
 
-			HashMap parentRep = stack.pop();
+			HashMap<String, Integer> parentRep = stack.pop();
 			result.add(parentRep);
 
 			for (int i = oriArray.size() - 1; i >= 0; i--) {
 				HashMap thisRep = oriArray.get(i);
-				if (parentRep.get("rep_id") == thisRep.get("rep_pid")) {
+				if (parentRep.get("rep_id") == thisRep.get("rep_parent")) {
 					stack.push(thisRep);
 					oriArray.remove(i);
 				}
@@ -58,11 +58,11 @@ public class DemoService {
 		return result;
 	}
 
-	public int insertRep(HashMap inputValues) {
-		if (inputValues.get("rep_pid").equals("")) {
-			inputValues.put("rep_pid", null);
-		}
-		System.out.println(inputValues);
-		return mapper.insertRep(inputValues);
+	public List<MemberVO> selectAllMember() {
+		return mapper.selectAllMember();
+	}
+
+	public int insertMember(MemberVO member) {
+		return mapper.insertMember(member);
 	}
 }
