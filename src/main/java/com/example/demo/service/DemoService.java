@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.lang.reflect.Array;
 import java.util.*;
 
+import com.example.demo.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +56,13 @@ public class DemoService {
 
 
 		return result;
+	}
+
+	public List<MemberVO> selectAllMember() {
+		return mapper.selectAllMember();
+	}
+
+	public int insertMember(MemberVO member) {
+		return mapper.insertMember(member);
 	}
 }

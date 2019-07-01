@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.config;
 
 import javax.sql.DataSource;
 
@@ -27,6 +27,7 @@ public class DatabaseConfiguration {
 
 	@Bean
 	public DataSource dataSource() {
+		hikariConfig().setConnectionInitSql("SET NAMES utf8mb4");
 		DataSource dataSource = new HikariDataSource(hikariConfig());
 		
 		return dataSource;
