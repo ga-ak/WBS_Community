@@ -2,13 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.model.DemoMapper">
-	<select id="selectAllId" resultType="string">
-		SELECT id
-		FROM t_member
-	</select>
+    <select id="selectAllId" resultType="string">
+        SELECT id
+        FROM t_member
+    </select>
 
-	<select id="selectAllRep" resultType="java.util.HashMap">
-		SELECT *
-		FROM reply_test
-	</select>
+    <select id="selectAllRep" resultType="java.util.HashMap">
+        SELECT *
+        FROM reply_test
+    </select>
+
+    <insert id="insertRep">
+        INSERT INTO reply_test (
+        rep_pid,
+        rep_content,
+        member_id,
+        rep_createTime,
+        rep_changedTime
+        ) VALUES (
+        #{rep_pid},
+        #{rep_content},
+        #{member_id},
+        now(),
+        now()
+        )
+    </insert>
 </mapper>

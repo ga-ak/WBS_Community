@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.service.DemoService;
@@ -20,21 +22,23 @@ public class DemoController {
     @Autowired
     DemoService service;
 
-    @RequestMapping("/demo.do")
-    public ModelAndView demo(HttpServletRequest req, HttpServletResponse resp) {
-        ModelAndView mav = new ModelAndView();
-
-        List<String> idList = service.selectAllId();
-        mav.addObject("idList", idList);
-        mav.setViewName("demo");
-        return mav;
+    @RequestMapping("/main.do")
+    public String demo(HttpServletRequest req, HttpServletResponse resp) {
+		return "main";
     }
 
     @RequestMapping("/rep.do")
     public String repTest(Model model) {
-        List<HashMap<String, Integer>> repList = service.selectAllRep();
+        List<HashMap> repList = service.selectAllRep();
         System.out.println(repList);
         model.addAttribute("repList", repList);
         return "repTest";
     }
+
+	@RequestMapping("/insert_test.do")
+	public String insertTest(@RequestParam HashMap inputValues) {
+		service.insertRep(inputValues);
+		return "redirect:/rep.do";
+	}
+
 }

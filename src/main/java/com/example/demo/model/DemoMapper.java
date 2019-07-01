@@ -10,5 +10,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface DemoMapper {
 	List<String> selectAllId();
-	List<HashMap<String, Integer>> selectAllRep();
+	List<HashMap> selectAllRep();
+	int insertRep(HashMap inputValues);
 }

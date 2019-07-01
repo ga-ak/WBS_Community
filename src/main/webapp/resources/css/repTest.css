@@ -1,0 +1,39 @@
+td {
+    border: 1px solid black;
+}
+
+.reply_area {
+    width: 100%;
+    height: 100px;
+    background-color: white;
+}
+
+.reply_area > .reply_wrapper {
+    width: 100%;
+    height: auto;
+}
+
+.reply_wrapper > .reply_info {
+    height: 100%;
+    background-color: #232F3E;
+    color: white;
+    overflow: hidden;
+}
+
+.reply_info > div {
+    float: left;
+    min-width: 20px;
+    overflow: hidden;
+}
+
+.reply_createTime {
+    float: right;
+}
+
+.reply_content {
+    clear: both;
+    width: 100%;
+    color: #000000;
+    background-color: white;
+
+}
