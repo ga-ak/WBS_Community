@@ -17,6 +17,10 @@
             <td><input type="password" name="member_pw"></td>
         </tr>
         <tr>
+            <td>이름</td>
+            <td><input type="text" name="member_name"></td>
+        </tr>
+        <tr>
             <td>닉네임</td>
             <td><input type="text" name="member_nick"></td>
         </tr>

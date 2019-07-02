@@ -14,4 +14,6 @@ public interface DemoMapper {
 	List<HashMap<String, Integer>> selectAllRep();
 	int insertMember(MemberVO member);
 	List<MemberVO> selectAllMember();
+	MemberVO selectLogin(MemberVO member);
+
 }

@@ -7,6 +7,7 @@ public class MemberVO {
     private int member_no;
     private String member_id;
     private String member_pw;
+    private String member_name;
     private String member_nick;
     private String member_email;
     private String member_phone;
@@ -14,7 +15,6 @@ public class MemberVO {
     private int member_isDeleted;
     private LocalDateTime member_created_date;
     private LocalDateTime member_changed_date;
-
 
     public int getMember_no() {
         return member_no;
@@ -38,6 +38,14 @@ public class MemberVO {
 
     public void setMember_pw(String member_pw) {
         this.member_pw = member_pw;
+    }
+
+    public String getMember_name() {
+        return member_name;
+    }
+
+    public void setMember_name(String member_name) {
+        this.member_name = member_name;
     }
 
     public String getMember_nick() {

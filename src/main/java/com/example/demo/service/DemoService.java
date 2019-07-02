@@ -63,6 +63,14 @@ public class DemoService {
         return mapper.selectAllMember();
     }
 
+    public MemberVO selectLogin(MemberVO member) {
+        MemberVO result = mapper.selectLogin(member);
+        if (result.getMember_isDeleted() == 1) {
+            result = null;
+        }
+        return result;
+    }
+
     public int insertMember(MemberVO member) {
         return mapper.insertMember(member);
     }

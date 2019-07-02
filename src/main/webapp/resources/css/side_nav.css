@@ -6,12 +6,9 @@
 
 .bbs_list li {
     list-style: none;
-    width: 50%;
     height: 40px;
     background-color: white;
-    float : right;
-    clear: both;
-    vertical-align: middle;
+
 }
 
 .bbs_list li:hover {

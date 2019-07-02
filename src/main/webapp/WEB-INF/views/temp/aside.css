@@ -1,4 +1,4 @@
-.login {
+.memberInfo {
     margin: 0px;
     width: 50%;
     height: 100px;
@@ -7,6 +7,6 @@
     clear: both;
 }
 
-.login > input {
+.memberInfo > input {
     width: 100%;
 }

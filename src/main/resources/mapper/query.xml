@@ -17,6 +17,13 @@
 		SELECT *
 		FROM member
 	</select>
+
+	<select id="selectLogin" parameterType="com.example.demo.vo.MemberVO" resultType="com.example.demo.vo.MemberVO">
+		SELECT *
+		FROM member
+		WHERE member_id=#{member_id}
+		AND member_pw=#{member_pw}
+	</select>
 <!--	insert-->
 
 	<insert id="insertMember">
