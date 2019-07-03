@@ -47,7 +47,7 @@ public class DemoController {
   public String login(@ModelAttribute MemberVO member, HttpServletRequest req) {
     MemberVO result = service.selectLogin(member);
     HttpSession session = req.getSession();
-    session.setAttribute("memberInfo", result);
+    session.setAttribute("loginMember", result);
     return "redirect:main.do";
   }
 
@@ -60,6 +60,7 @@ public class DemoController {
 
   @RequestMapping("/*Form.do")
   public String getForm(HttpServletRequest req) {
+
     String uri = req.getRequestURI();
     String result = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
 
@@ -67,10 +68,16 @@ public class DemoController {
   }
 
   @RequestMapping("/*List.do")
-  public String getList(HttpServletRequest req) {
+  public String getList(HttpServletRequest req, HttpSession session) {
+    if (session.getAttribute("loginMember") != null) {
+      MemberVO loginMember = (MemberVO)session.getAttribute("loginMember");
+      LOGGER.debug(loginMember.getMember_id());
+    } else {
+      LOGGER.debug("loginMember에 아무값이 없음");
+    }
     String uri = req.getRequestURI();
     String result = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
-
+    LOGGER.debug(result);
     return "main_area/lists/"+result;
   }
 

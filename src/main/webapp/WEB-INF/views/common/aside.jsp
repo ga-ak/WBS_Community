@@ -24,7 +24,7 @@
       </div>
     </c:when>
     <c:otherwise>
-      ${memberInfo.member_nick} 님 환영합니다!
+      ${loginMember.member_nick} 님 환영합니다!
     </c:otherwise>
   </c:choose>
 

@@ -10,6 +10,7 @@ body {
 
 nav {
   width: 100%;
+  min-width: 1280px;
   height: 44px;
   background-color: #232F3E;
   text-align: center;
@@ -19,6 +20,7 @@ nav {
 .main_wrap {
   width: 1280px;
   margin: 10px auto 0;
+  padding: 0px 15px;
   min-height: 1000px;
   height: auto;
   overflow: auto;
@@ -34,12 +36,12 @@ nav {
 }
 
 .side_nav {
-  width: 180px;
+  width: 145px;
   margin-right: 10px;
 }
 
 .main_area {
-  width: 900px;
+  width: 895px;
   overflow: auto;
 }
 

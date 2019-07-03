@@ -3,16 +3,6 @@
 
 <mapper namespace="com.example.demo.model.DemoMapper">
   <!--	select-->
-  <select id="selectAllId" resultType="string">
-    SELECT id
-    FROM t_member
-  </select>
-
-  <select id="selectAllRep" resultType="java.util.HashMap">
-    SELECT *
-    FROM reply_test
-  </select>
-
   <select id="selectAllMember" resultType="com.example.demo.vo.MemberVO">
     SELECT *
     FROM member
@@ -21,28 +11,25 @@
   <select id="selectLogin" parameterType="com.example.demo.vo.MemberVO" resultType="com.example.demo.vo.MemberVO">
     SELECT *
     FROM member
-    WHERE member_id=#{member_id}
-    AND member_pw=#{member_pw}
+    WHERE member_id = #{member_id}
+      AND member_pw = #{member_pw}
   </select>
-  <!--	insert-->
 
+  <!--	insert-->
   <insert id="insertMember">
-    INSERT INTO member (
-    member_id,
-    member_pw,
-    member_nick,
-    member_email,
-    member_phone,
-    member_gender,
-    member_created_date
-    ) VALUES (
-    #{member_id},
-    #{member_pw},
-    #{member_nick},
-    #{member_email},
-    #{member_phone},
-    #{member_gender},
-    now()
-    )
+    INSERT INTO member (member_id,
+                        member_pw,
+                        member_nick,
+                        member_email,
+                        member_phone,
+                        member_gender,
+                        member_created_date)
+    VALUES (#{member_id},
+            #{member_pw},
+            #{member_nick},
+            #{member_email},
+            #{member_phone},
+            #{member_gender},
+            now())
   </insert>
 </mapper>
