@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <property name="LOG_DIR" value="/eCall/logs" />
+    <property name="SERVER_NAME" value="collection"/>
+    <property name="LOG_PATH_NAME" value="${LOG_DIR}/${SERVER_NAME}" />
+    <property name="FILE_NAME" value="collectionServer" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <appender name="MYLOGGER" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%clr(%magenta(%d{yyyy-MM-dd HH:mm:ss.SSS})){faint} %clr(%highlight(${LOG_LEVEL_PATTERN:-%5p})) %clr(${PID:- }){magenta} %clr(---){magenta} %clr(%magenta([%15.15t])){faint} %clr(%-40.40logger{39}){cyan} %clr(:){magenta} %clr(%m%n){magenta}${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+        </layout>
+    </appender>
+
+    <logger name="com.example.demo" additivity ="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="MYLOGGER"/>
+    </logger>
+
+    <!-- 모든 로그 출력 (파일/콘솔) -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+
+
+</configuration>

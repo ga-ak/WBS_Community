@@ -1,0 +1,22 @@
+.article_wrapper {
+  height: auto;
+  min-height: 1000px;
+}
+
+.article_wrapper > table {
+  border-collapse: collapse;
+}
+
+.article_wrapper td, th {
+  border: 1px solid black;
+}
+
+.article_wrapper th {
+  background-color: #232F3E;
+  color: #ffffff;
+}
+
+.article_wrapper td {
+  background-color: #ffffff;
+}
+
