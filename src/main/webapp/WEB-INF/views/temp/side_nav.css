@@ -1,9 +1,9 @@
 .bbs_list li {
-    list-style: none;
-    height: 20px;
-    background-color: white;
+  list-style: none;
+  height: 20px;
+  background-color: white;
 }
 
 .bbs_list > a {
-    text-decoration: none;
+  text-decoration: none;
 }

@@ -1,14 +1,14 @@
 .memberInfo {
-    margin: 0px;
-    height: 100px;
-    float : left;
-    clear: both;
+  margin: 0px;
+  height: 100px;
+  float : left;
+  clear: both;
 }
 
 .memberInfo > div {
-    background-color: white;
+  background-color: white;
 }
 
 .memberInfo > input {
-    width: 100%;
+  width: 100%;
 }

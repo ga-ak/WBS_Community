@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface DemoMapper {
-	List<String> selectAllId();
-	List<HashMap<String, Integer>> selectAllRep();
-	int insertMember(MemberVO member);
-	List<MemberVO> selectAllMember();
-	MemberVO selectLogin(MemberVO member);
+  List<String> selectAllId();
+  List<HashMap<String, Integer>> selectAllRep();
+  int insertMember(MemberVO member);
+  List<MemberVO> selectAllMember();
+  MemberVO selectLogin(MemberVO member);
 
 }

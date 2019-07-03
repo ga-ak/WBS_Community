@@ -1,17 +1,17 @@
 .memberTable {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 .memberTable td,th {
-    border: 1px solid black;
+  border: 1px solid black;
 }
 
 .memberTable th {
-    background-color: #232F3E;
-    color: #ffffff;
+  background-color: #232F3E;
+  color: #ffffff;
 }
 
 .memberTable td {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 

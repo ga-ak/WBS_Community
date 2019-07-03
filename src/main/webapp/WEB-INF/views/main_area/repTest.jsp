@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="resources/css/repTest.css">
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="resources/css/repTest.css">
 </head>
 <body>
 <%--<table>--%>
@@ -27,35 +27,35 @@
 <%--</table>--%>
 
 <div class="reply_area">
-    <c:forEach var="rep" items="${repList}">
-        <div class="reply_wrapper">
-            <div class="reply_info">
-                <div class="reply_id">${rep.rep_id}</div>
-                <div class="reply_pid">${rep.rep_pid}</div>
-                <div class="reply_createTime">${rep.rep_createTime}</div>
-            </div>
-            <div class="reply_content">${rep.rep_content}</div>
-        </div>
-    </c:forEach>
+  <c:forEach var="rep" items="${repList}">
+    <div class="reply_wrapper">
+      <div class="reply_info">
+        <div class="reply_id">${rep.rep_id}</div>
+        <div class="reply_pid">${rep.rep_pid}</div>
+        <div class="reply_createTime">${rep.rep_createTime}</div>
+      </div>
+      <div class="reply_content">${rep.rep_content}</div>
+    </div>
+  </c:forEach>
 
 </div>
 
 <form action="/demo/insert_test.do">
-    <table>
-        <tr>
-            <td>_pid</td>
-            <td><input type="text" name="rep_pid"/></td>
-        </tr>
-        <tr>
-            <td>_content</td>
-            <td><input type="text" name="rep_content"/></td>
-        </tr>
-        <tr>
-            <td>_member_id</td>
-            <td><input type="text" name="member_id"/></td>
-        </tr>
-    </table>
-    <input type="submit" value="제출"/>
+  <table>
+    <tr>
+      <td>_pid</td>
+      <td><input type="text" name="rep_pid"/></td>
+    </tr>
+    <tr>
+      <td>_content</td>
+      <td><input type="text" name="rep_content"/></td>
+    </tr>
+    <tr>
+      <td>_member_id</td>
+      <td><input type="text" name="member_id"/></td>
+    </tr>
+  </table>
+  <input type="submit" value="제출"/>
 </form>
 
 <div></div>

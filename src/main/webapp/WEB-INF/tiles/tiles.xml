@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-    <definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
-        <put-attribute name="title" value=""/>
-        <put-attribute name="side_nav" value="/WEB-INF/views/common/side_nav.jsp"/>
-        <put-attribute name="main_area" value=""/>
-        <put-attribute name="aside" value="/WEB-INF/views/common/aside.jsp"/>
-        <put-attribute name="footer_wrap" value=""/>
-    </definition>
+  <definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
+    <put-attribute name="title" value=""/>
+    <put-attribute name="side_nav" value="/WEB-INF/views/common/side_nav.jsp"/>
+    <put-attribute name="main_area" value=""/>
+    <put-attribute name="aside" value="/WEB-INF/views/common/aside.jsp"/>
+    <put-attribute name="footer_wrap" value=""/>
+  </definition>
 
-    <definition name="main" extends="baseLayout">
-        <put-attribute name="title" value="메인페이지"/>
-        <put-attribute name="main_area" value="/WEB-INF/views/common/main_area.jsp"/>
-    </definition>
+  <definition name="main" extends="baseLayout">
+    <put-attribute name="title" value="메인페이지"/>
+    <put-attribute name="main_area" value="/WEB-INF/views/common/main_area.jsp"/>
+  </definition>
 
-    <definition name="repTest" extends="baseLayout">
-        <put-attribute name="title" value="메인페이지"/>
-        <put-attribute name="main_area" value="/WEB-INF/views/main_area/repTest.jsp"/>
-    </definition>
+  <definition name="repTest" extends="baseLayout">
+    <put-attribute name="title" value="메인페이지"/>
+    <put-attribute name="main_area" value="/WEB-INF/views/main_area/repTest.jsp"/>
+  </definition>
 
-    <definition name="main_area/*/*" extends="baseLayout">
-        <put-attribute name="title" value="메인페이지"/>
-        <put-attribute name="main_area" value="/WEB-INF/views/main_area/{1}/{2}.jsp"/>
-    </definition>
-    
+  <definition name="main_area/*/*" extends="baseLayout">
+    <put-attribute name="title" value="메인페이지"/>
+    <put-attribute name="main_area" value="/WEB-INF/views/main_area/{1}/{2}.jsp"/>
+  </definition>
+
 </tiles-definitions>
