@@ -5,8 +5,8 @@
 <html lang="en">
 <head>
   <title></title>
-  <link rel="stylesheet" href="resources/css/articleList.css">
-  <script src="resources/js/articleList.js"></script>
+  <link rel="stylesheet" href="/demo/resources/css/articleList.css">
+<%--  <script src="/demo/resources/js/articleList.js"></script>--%>
 </head>
 <body>
 <div class="board_name">
@@ -44,12 +44,15 @@
   </table>
 </div>
 <div class="board_footer">
-  <form action="articleForm.do">
+  <form action="/demo/board/article.form">
     <input type="submit" value="글쓰기(submit)">
   </form>
   <button id="btn_writeArticle">
     글쓰기(js)
   </button>
 </div>
+<script>
+
+</script>
 </body>
 </html>

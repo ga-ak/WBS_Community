@@ -5,12 +5,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="resources/css/aside.css">
+  <link rel="stylesheet" href="/demo/resources/css/aside.css">
 </head>
 <body>
 <div class="memberInfo">
   <c:choose>
-    <c:when test="${memberInfo == null}">
+    <c:when test="${loginMember == null}">
       <div class="login_wrapper">
         <form action="login.do" method="post">
           <input type="text" name="member_id">
@@ -19,7 +19,7 @@
           <br>
           <input type="checkbox">자동로그인
           <input type="submit" value="로그인">
-          <a href="joinForm.do"><input type="button" value="회원가입"></a>
+          <a href="/demo/join.form"><input type="button" value="회원가입"></a>
         </form>
       </div>
     </c:when>

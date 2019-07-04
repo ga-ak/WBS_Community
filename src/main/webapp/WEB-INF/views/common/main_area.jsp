@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <link rel="stylesheet" href="resources/css/main_area.css">
+  <link rel="stylesheet" href="/demo/resources/css/main_area.css">
 </head>
 <body>
 <div class="main_area_wrapper">

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +8,13 @@
   <script src="https://cdn.ckeditor.com/ckeditor5/12.2.0/classic/translations/ko.js"></script>
 </head>
 <body>
+<p>${formerUri}</p>
 <form action="writeArticle.do" method="post">
   <textarea id="editor" name="content">
     <p>여기에 게시글을 작성하세요!</p>
   </textarea>
-  <input type="button" value="전송">
+  <input type="hidden" name="formerUri" value="${formerUri}">
+  <input type="submit" value="전송">
 </form>
 <script>
   let myEditor;

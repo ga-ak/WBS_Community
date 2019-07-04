@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +52,16 @@ public class DemoController {
     return "redirect:main.do";
   }
 
+  @RequestMapping("/**/*.form")
+  public String getForm(HttpServletRequest req, Model model) {
+
+    String result = getLastUri(req);
+    String formerUri = req.getHeader("referer");
+    LOGGER.debug("test : "+formerUri);
+    model.addAttribute("formerUri", formerUri);
+    return "main_area/forms/"+result;
+  }
+
   @RequestMapping("/memberList.do")
   public String memberList(Model model) {
     List<MemberVO> result = service.selectAllMember();
@@ -58,35 +69,41 @@ public class DemoController {
     return "main_area/lists/memberList";
   }
 
-  @RequestMapping("/*Form.do")
-  public String getForm(HttpServletRequest req) {
-
-    String uri = req.getRequestURI();
-    String result = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
-
-    return "main_area/forms/"+result;
-  }
-
-  @RequestMapping("/*List.do")
+  @RequestMapping("/articleList.do")
   public String getList(HttpServletRequest req, HttpSession session) {
-    if (session.getAttribute("loginMember") != null) {
-      MemberVO loginMember = (MemberVO)session.getAttribute("loginMember");
-      LOGGER.debug(loginMember.getMember_id());
-    } else {
-      LOGGER.debug("loginMember에 아무값이 없음");
-    }
-    String uri = req.getRequestURI();
-    String result = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
+//    if (session.getAttribute("loginMember") != null) {
+//      MemberVO loginMember = (MemberVO)session.getAttribute("loginMember");
+//      LOGGER.debug(loginMember.getMember_id());
+//    } else {
+//      LOGGER.debug("loginMember에 아무값이 없음");
+//    }
+    String result = getLastUri(req);
     LOGGER.debug(result);
     return "main_area/lists/"+result;
   }
 
-  @RequestMapping("/writeArticle.do")
-  public String writeArticle(@RequestParam("content") HttpServletRequest req) {
-    String uri = req.getRequestURI();
-    String result = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
+  @RequestMapping("/board/*.do")
+  public String board(HttpServletRequest req, HttpSession session) {
+//    if (session.getAttribute("loginMember") != null) {
+//      MemberVO loginMember = (MemberVO)session.getAttribute("loginMember");
+//      LOGGER.debug(loginMember.getMember_id());
+//    } else {
+//      LOGGER.debug("loginMember에 아무값이 없음");
+//    }
+    String result = getBoardName(req);
+    LOGGER.debug(result);
+    return "main_area/lists/articleList";
+  }
 
-    return "main_area/lists/"+result;
+  @RequestMapping("/board/writeArticle.do")
+  public String writeArticle(@RequestParam("content") String content, @RequestParam("formerUri") String formerUri, HttpServletRequest req) {
+
+    String result = getLastUri(req);
+    LOGGER.debug(content);
+    LOGGER.debug(formerUri);
+
+//    return "main_area/lists/"+result;
+    return "main_area/lists/articleList";
   }
 
   // for test
@@ -94,5 +111,17 @@ public class DemoController {
   public String ckeditorTest(@RequestParam String content) {
     LOGGER.debug(content);
     return "redirect:main.do";
+  }
+
+  private String getLastUri(HttpServletRequest req) {
+    String uri = req.getRequestURI();
+    String result = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
+    return result;
+  }
+
+  private String getBoardName(HttpServletRequest req) {
+    String uri = req.getRequestURI();
+    String result = uri.substring(uri.lastIndexOf("/")+1, uri.length());
+    return result;
   }
 }

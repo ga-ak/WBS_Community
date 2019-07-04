@@ -16,7 +16,7 @@
 
   <appender name="MYLOGGER" class="ch.qos.logback.core.ConsoleAppender">
     <layout class="ch.qos.logback.classic.PatternLayout">
-      <pattern>%clr(%magenta(%d{yyyy-MM-dd HH:mm:ss.SSS})){faint} %clr(%highlight(${LOG_LEVEL_PATTERN:-%5p})) %clr(${PID:- }){magenta} %clr(---){magenta} %clr(%magenta([%15.15t])){faint} %clr(%-40.40logger{39}){cyan} %clr(:){magenta} %clr(%m%n){magenta}${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+      <pattern>%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){magenta} %clr(${LOG_LEVEL_PATTERN:-%5p}){red} %clr(${PID:- }){magenta} %clr(---){magenta} %clr(%magenta([%15.15t])){faint} %clr(%-40.40logger{39}){cyan} %clr(:){magenta} %clr(%m%n){magenta}${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
     </layout>
   </appender>
 

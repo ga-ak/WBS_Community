@@ -4,18 +4,15 @@
 
 }
 
-.bbs_list li {
-  list-style: none;
+.bbs_list div {
   height: 40px;
   background-color: white;
-
 }
 
-.bbs_list li:hover {
+.bbs_list div:hover {
   background-color: rgba(255,255,255,0);
 }
 
 .bbs_list > a {
   text-decoration: none;
-
 }
