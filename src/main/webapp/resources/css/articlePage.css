@@ -1,0 +1,14 @@
+.content_area {
+    border: 1px solid black;
+    background-color: white;
+    min-height: 200px;
+    height: auto;
+}
+
+.reply_area {
+    border: 1px solid black;
+    background-color: white;
+    min-height: 200px;
+    height: auto;
+
+}

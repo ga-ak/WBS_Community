@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
   <title></title>
-  <link rel="stylesheet" href="resources/css/memberList.css">
+  <link rel="stylesheet" href="/demo/resources/css/memberList.css">
 </head>
 <body>
 <table class="memberTable">

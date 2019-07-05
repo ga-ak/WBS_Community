@@ -2,34 +2,98 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.model.DemoMapper">
-  <!--	select-->
-  <select id="selectAllMember" resultType="com.example.demo.vo.MemberVO">
-    SELECT *
-    FROM member
-  </select>
+    <!--	select-->
+    <select id="selectAllMember" resultType="com.example.demo.vo.MemberVO">
+        SELECT *
+        FROM member
+    </select>
 
-  <select id="selectLogin" parameterType="com.example.demo.vo.MemberVO" resultType="com.example.demo.vo.MemberVO">
-    SELECT *
-    FROM member
-    WHERE member_id = #{member_id}
-      AND member_pw = #{member_pw}
-  </select>
+    <select id="selectLogin" parameterType="com.example.demo.vo.MemberVO" resultType="com.example.demo.vo.MemberVO">
+        SELECT *
+        FROM member
+        WHERE member_id = #{member_id}
+          AND member_pw = #{member_pw}
+    </select>
 
-  <!--	insert-->
-  <insert id="insertMember">
-    INSERT INTO member (member_id,
-                        member_pw,
-                        member_nick,
-                        member_email,
-                        member_phone,
-                        member_gender,
-                        member_created_date)
-    VALUES (#{member_id},
-            #{member_pw},
-            #{member_nick},
-            #{member_email},
-            #{member_phone},
-            #{member_gender},
-            now())
-  </insert>
+    <select id="selectArticleByBoardName" parameterType="String" resultType="com.example.demo.vo.ArticleVO">
+        SELECT *
+        FROM article
+        WHERE board_no = (SELECT board_no
+                          FROM board
+                          WHERE board_name = #{board_name})
+
+    </select>
+
+    <select id="selectBoardIdByName" parameterType="String" resultType="Integer">
+        SELECT board_no
+        FROM board
+        WHERE board_name = #{board_name}
+    </select>
+
+    <select id="selectArticleById" parameterType="Integer" resultType="java.util.HashMap">
+        SELECT article_no,
+               article_pno,
+               board_name,
+               member_nick,
+               article_name,
+               article_content,
+               article_recommends,
+               article_views,
+               article_images,
+               article_ip,
+               article_reports,
+               article_created_time,
+               article_changed_time,
+               article_isDeleted
+        FROM article,
+             member,
+             board
+        WHERE board.board_no = article.board_no
+          AND member.member_no = article.member_no
+          AND article.article_no = #{articleNo}
+    </select>
+
+    <!--	insert-->
+    <insert id="insertMember">
+        INSERT INTO member (member_id,
+                            member_pw,
+                            member_nick,
+                            member_email,
+                            member_phone,
+                            member_gender,
+                            member_created_date)
+            VALUES (#{member_id},
+                    #{member_pw},
+                    #{member_nick},
+                    #{member_email},
+                    #{member_phone},
+                    #{member_gender},
+                    now())
+    </insert>
+
+    <insert id="insertArticle">
+        INSERT INTO article (article_pno,
+                             board_no,
+                             member_no,
+                             article_name,
+                             article_content,
+                             article_recommends,
+                             article_views,
+                             article_images,
+                             article_ip,
+                             article_reports,
+                             article_created_time)
+            VALUES (#{article_pno},
+                    #{board_no},
+                    #{member_no},
+                    #{article_name},
+                    #{article_content},
+                    0,
+                    0,
+                    0,
+                    #{article_ip},
+                    0,
+                    now());
+
+    </insert>
 </mapper>

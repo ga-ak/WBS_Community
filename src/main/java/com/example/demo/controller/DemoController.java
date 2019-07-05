@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.DemoService;
+import com.example.demo.vo.ArticleVO;
 import com.example.demo.vo.MemberVO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -97,16 +98,23 @@ public class DemoController {
   }
 
   @RequestMapping("/board/*.do")
-  public String board(HttpServletRequest req, HttpSession session) {
-//    if (session.getAttribute("loginMember") != null) {
-//      MemberVO loginMember = (MemberVO)session.getAttribute("loginMember");
-//      LOGGER.debug(loginMember.getMember_id());
-//    } else {
-//      LOGGER.debug("loginMember에 아무값이 없음");
-//    }
-    String result = getBoardName(req);
-    LOGGER.debug(result);
-    return "main_area/lists/articleList";
+  public String board(@RequestParam(value = "an", required = false) Integer articleNo, HttpServletRequest req, HttpSession session, Model model) {
+    if (articleNo != null) {
+      LOGGER.debug("articleNo : "+articleNo);
+
+      HashMap articlePageModel = service.selectArticleById(articleNo);
+      articlePageModel.forEach((k,v) -> LOGGER.debug("key : " + k + ", value : " + v));
+      LOGGER.debug("content test : "+articlePageModel.get("article_content"));
+      model.addAttribute("articlePageModel", articlePageModel);
+
+      return "main_area/pages/articlePage";
+    } else {
+      String lastUri = getLastUri(req);
+      List<ArticleVO> articleList = service.selectArticleByBoardName(lastUri);
+      model.addAttribute("articleList", articleList);
+      LOGGER.debug(lastUri);
+      return "main_area/lists/articleList";
+    }
   }
 
   @RequestMapping("/board/**/postArticle.do")
@@ -116,6 +124,11 @@ public class DemoController {
     MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
     LOGGER.debug(req.getHeader("referer"));
     LOGGER.debug(articleMap.get("content"));
+
+    // todo: redirect 위치 url뒤에서 두번째 깊이의 스트링 선택하는 메소드 구현하기
+    articleMap.put("board_name", "free");
+
+    service.insertArticle(loginMember, articleMap, req);
 
 //    return "main_area/lists/"+result;
     // todo: redirect 위치 url뒤에서 두번째 깊이의 스트링 선택하는 메소드 구현하기

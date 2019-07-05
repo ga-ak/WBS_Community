@@ -16,6 +16,11 @@ public interface DemoMapper {
   List<MemberVO> selectAllMember();
   MemberVO selectLogin(MemberVO member);
 
+  HashMap selectArticleById(Integer articleNo);
+  List<ArticleVO> selectArticleByBoardName(String boardName);
+
+  Integer selectBoardIdByName(String boardName);
+
   int insertMember(MemberVO member);
 
   int insertArticle(ArticleVO articleVO);
