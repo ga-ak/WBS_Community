@@ -12,7 +12,7 @@
   <c:choose>
     <c:when test="${loginMember == null}">
       <div class="login_wrapper">
-        <form action="login.do" method="post">
+        <form action="/demo/login.do" method="post">
           <input type="text" name="member_id">
           <br>
           <input type="password" name="member_pw">

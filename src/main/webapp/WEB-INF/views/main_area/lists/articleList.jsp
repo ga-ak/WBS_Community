@@ -6,11 +6,22 @@
 <head>
   <title></title>
   <link rel="stylesheet" href="/demo/resources/css/articleList.css">
-<%--  <script src="/demo/resources/js/articleList.js"></script>--%>
+  <%
+    String uri = (String)request.getAttribute("javax.servlet.forward.request_uri");
+    String lastUri = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
+//    System.out.println("uri : "+uri);
+//    System.out.println("lastUri : "+lastUri);
+    String boardName_ko;
+    if (lastUri.equals("free")) {
+      boardName_ko = "자유게시판";
+    } else {
+      boardName_ko = "이런이름이 나오면 안되는 게시판";
+    }
+  %>
 </head>
 <body>
 <div class="board_name">
-  <h1>자유게시판</h1>
+  <h3><%=boardName_ko%></h3>
 </div>
 <div class="board_nav">
 
@@ -44,7 +55,7 @@
   </table>
 </div>
 <div class="board_footer">
-  <form action="/demo/board/article.form">
+  <form action="/demo/board/<%=lastUri%>/article.form">
     <input type="submit" value="글쓰기(submit)">
   </form>
   <button id="btn_writeArticle">

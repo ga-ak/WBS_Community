@@ -5,6 +5,7 @@ import com.example.demo.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,5 +74,10 @@ public class DemoService {
 
   public int insertMember(MemberVO member) {
     return mapper.insertMember(member);
+  }
+
+  public int insertArticle(MemberVO loginMember, HashMap<String, String> articleMap) {
+
+    return 0;
   }
 }

@@ -25,6 +25,7 @@ public class DemoController {
   DemoService service;
 
   private static final Logger LOGGER = LogManager.getLogger(DemoController.class);
+
   @RequestMapping("/main.do")
   public String mainPage(HttpServletRequest req) {
     return "main";
@@ -52,14 +53,13 @@ public class DemoController {
     return "redirect:main.do";
   }
 
-  @RequestMapping("/**/*.form")
+  @RequestMapping("/join.form")
   public String getForm(HttpServletRequest req, Model model) {
 
     String result = getLastUri(req);
     String formerUri = req.getHeader("referer");
-    LOGGER.debug("test : "+formerUri);
     model.addAttribute("formerUri", formerUri);
-    return "main_area/forms/"+result;
+    return "main_area/forms/" + result;
   }
 
   @RequestMapping("/memberList.do")
@@ -79,7 +79,21 @@ public class DemoController {
 //    }
     String result = getLastUri(req);
     LOGGER.debug(result);
-    return "main_area/lists/"+result;
+    return "main_area/lists/" + result;
+  }
+
+  @RequestMapping("board/**/article.form")
+  public String getArticleForm(HttpSession session, HttpServletRequest req, Model model) {
+
+    MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
+    if (loginMember == null) {
+      LOGGER.debug("session에 로그인 정보가 없음!");
+      return "redirect:/board/" + "free" + ".do";
+    }
+    String result = getLastUri(req);
+    String formerUri = req.getHeader("referer");
+    model.addAttribute("formerUri", formerUri);
+    return "main_area/forms/" + result;
   }
 
   @RequestMapping("/board/*.do")
@@ -95,15 +109,17 @@ public class DemoController {
     return "main_area/lists/articleList";
   }
 
-  @RequestMapping("/board/writeArticle.do")
-  public String writeArticle(@RequestParam("content") String content, @RequestParam("formerUri") String formerUri, HttpServletRequest req) {
+  @RequestMapping("/board/**/postArticle.do")
+  public String postArticle(@RequestParam HashMap<String, String> articleMap, HttpServletRequest req,
+                            HttpSession session) {
 
-    String result = getLastUri(req);
-    LOGGER.debug(content);
-    LOGGER.debug(formerUri);
+    MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
+    LOGGER.debug(req.getHeader("referer"));
+    LOGGER.debug(articleMap.get("content"));
 
 //    return "main_area/lists/"+result;
-    return "main_area/lists/articleList";
+    // todo: redirect 위치 url뒤에서 두번째 깊이의 스트링 선택하는 메소드 구현하기
+    return "redirect:/board/" + "free" + ".do";
   }
 
   // for test
@@ -115,13 +131,13 @@ public class DemoController {
 
   private String getLastUri(HttpServletRequest req) {
     String uri = req.getRequestURI();
-    String result = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
+    String result = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
     return result;
   }
 
   private String getBoardName(HttpServletRequest req) {
     String uri = req.getRequestURI();
-    String result = uri.substring(uri.lastIndexOf("/")+1, uri.length());
+    String result = uri.substring(uri.lastIndexOf("/") + 1, uri.length());
     return result;
   }
 }
