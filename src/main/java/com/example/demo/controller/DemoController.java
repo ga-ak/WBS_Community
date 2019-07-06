@@ -103,6 +103,7 @@ public class DemoController {
       LOGGER.debug("articleNo : "+articleNo);
 
       HashMap articlePageModel = service.selectArticleById(articleNo);
+
       articlePageModel.forEach((k,v) -> LOGGER.debug("key : " + k + ", value : " + v));
       LOGGER.debug("content test : "+articlePageModel.get("article_content"));
       model.addAttribute("articlePageModel", articlePageModel);
