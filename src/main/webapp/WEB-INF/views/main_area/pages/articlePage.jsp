@@ -6,6 +6,9 @@
   <meta charset="UTF-8">
   <title>Insert title here</title>
   <link rel="stylesheet" href="/demo/resources/css/articlePage.css">
+  <script src="https://cdn.ckeditor.com/ckeditor5/12.2.0/inline/ckeditor.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/12.2.0/inline/translations/ko.js"></script>
+</
 </head>
 <body>
 <div class="content_area">
@@ -64,7 +67,45 @@
       {reply_content}
     </div>
   </div>
-  <textarea name="content" id="reply_editor"></textarea>
+  <div class="reply_post">
+    <textrea name="content" id="reply_editor"></textrea>
+    <form action="/demo/postRep.do">
+      <input type="submit" value="댓글 달기">
+    </form>
+  </div>
+  <script>
+    let myEditor;
+    InlineEditor
+        .create(document.querySelector('#reply_editor'), {
+          language: 'ko'
+          //        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ]
+          //        options: [{
+          //            model: 'paragraph',
+          //            title: 'Paragraph',
+          //            class: 'ck-heading_paragraph'
+          //          },
+          //          {
+          //            model: 'heading1',
+          //            view: 'h1',
+          //            title: 'Heading 1',
+          //            class: 'ck-heading_heading1'
+          //          },
+          //          {
+          //            model: 'heading2',
+          //            view: 'h2',
+          //            title: 'Heading 2',
+          //            class: 'ck-heading_heading2'
+          //          }
+          //        ]
+        })
+        .then(editor => {
+          thisEditor = editor;
+          console.log(editor);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+  </script>
 </div>
 </body>
 </html>

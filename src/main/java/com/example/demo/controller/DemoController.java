@@ -49,9 +49,17 @@ public class DemoController {
   @RequestMapping(value = "/login.do", method = RequestMethod.POST)
   public String login(@ModelAttribute MemberVO member, HttpServletRequest req) {
     MemberVO result = service.selectLogin(member);
+    String formerUri = req.getHeader("referer");
     HttpSession session = req.getSession();
     session.setAttribute("loginMember", result);
-    return "redirect:main.do";
+    return "redirect:"+formerUri;
+  }
+
+  @RequestMapping("/logout.do")
+  public String logout(HttpSession session, HttpServletRequest req) {
+    String formerUri = req.getHeader("referer");
+    session.removeAttribute("loginMember");
+    return "redirect:"+formerUri;
   }
 
   @RequestMapping("/join.form")

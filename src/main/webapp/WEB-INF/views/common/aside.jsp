@@ -24,7 +24,10 @@
       </div>
     </c:when>
     <c:otherwise>
-      ${loginMember.member_nick} 님 환영합니다!
+      <div>${loginMember.member_nick} 님 환영합니다!</div>
+      <form action="/demo/logout.do">
+        <input type="submit" value="로그아웃">
+      </form>
     </c:otherwise>
   </c:choose>
 
