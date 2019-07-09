@@ -33,6 +33,7 @@
     <select id="selectArticleById" parameterType="Integer" resultType="java.util.HashMap">
         SELECT article_no,
                article_pno,
+               article.board_no,
                board_name,
                member_nick,
                article_name,
@@ -53,6 +54,23 @@
           AND article.article_no = #{articleNo}
     </select>
 
+    <select id="selectReplyByArticleNo" parameterType="Integer" resultType="java.util.HashMap">
+        SELECT member_nick,
+               reply_no,
+               reply_pno,
+               reply_ip,
+               reply_created_time,
+               reply_changed_time,
+               reply_recommends,
+               reply_reports,
+               reply_isDeleted,
+               reply_content
+        FROM reply,
+             member
+        WHERE reply.article_no = #{articleNO}
+          AND reply.member_no = member.member_no
+    </select>
+
     <!--	insert-->
     <insert id="insertMember">
         INSERT INTO member (member_id,
@@ -62,13 +80,13 @@
                             member_phone,
                             member_gender,
                             member_created_date)
-            VALUES (#{member_id},
-                    #{member_pw},
-                    #{member_nick},
-                    #{member_email},
-                    #{member_phone},
-                    #{member_gender},
-                    now())
+        VALUES (#{member_id},
+                #{member_pw},
+                #{member_nick},
+                #{member_email},
+                #{member_phone},
+                #{member_gender},
+                now())
     </insert>
 
     <insert id="insertArticle">
@@ -83,17 +101,41 @@
                              article_ip,
                              article_reports,
                              article_created_time)
-            VALUES (#{article_pno},
-                    #{board_no},
-                    #{member_no},
-                    #{article_name},
-                    #{article_content},
-                    0,
-                    0,
-                    0,
-                    #{article_ip},
-                    0,
-                    now());
+        VALUES (#{article_pno},
+                #{board_no},
+                #{member_no},
+                #{article_name},
+                #{article_content},
+                0,
+                0,
+                0,
+                #{article_ip},
+                0,
+                now());
+
+    </insert>
+
+    <insert id="insertReply">
+        INSERT INTO reply (reply_pno,
+                           board_no,
+                           article_no,
+                           member_no,
+                           reply_content,
+                           reply_recommends,
+                           reply_images,
+                           reply_ip,
+                           reply_reports,
+                           reply_created_time)
+        VALUES (#{reply_pno},
+                #{board_no},
+                #{article_no},
+                #{member_no},
+                #{content},
+                0,
+                0,
+                #{reply_ip},
+                0,
+                now());
 
     </insert>
 </mapper>

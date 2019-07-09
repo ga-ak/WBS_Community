@@ -21,7 +21,11 @@ public interface DemoMapper {
 
   Integer selectBoardIdByName(String boardName);
 
+  List<HashMap> selectReplyByArticleNo(Integer articleNo);
+
   int insertMember(MemberVO member);
 
   int insertArticle(ArticleVO articleVO);
+
+  int insertReply(HashMap replyMap);
 }

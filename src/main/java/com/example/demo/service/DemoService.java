@@ -82,6 +82,10 @@ public class DemoService {
         return mapper.selectArticleById(articleNo);
     }
 
+    public List<HashMap> selectReplyByArticleNo(Integer articleNo) {
+        return mapper.selectReplyByArticleNo(articleNo);
+    }
+
     public int insertMember(MemberVO member) {
         return mapper.insertMember(member);
     }
@@ -104,5 +108,10 @@ public class DemoService {
         article.setArticle_ip(article_ip);
 
         return mapper.insertArticle(article);
+    }
+
+    public int insertReply(HashMap replyMap) {
+
+        return mapper.insertReply(replyMap);
     }
 }

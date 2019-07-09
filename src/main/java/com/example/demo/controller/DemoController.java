@@ -52,14 +52,14 @@ public class DemoController {
     String formerUri = req.getHeader("referer");
     HttpSession session = req.getSession();
     session.setAttribute("loginMember", result);
-    return "redirect:"+formerUri;
+    return "redirect:" + formerUri;
   }
 
   @RequestMapping("/logout.do")
   public String logout(HttpSession session, HttpServletRequest req) {
     String formerUri = req.getHeader("referer");
     session.removeAttribute("loginMember");
-    return "redirect:"+formerUri;
+    return "redirect:" + formerUri;
   }
 
   @RequestMapping("/join.form")
@@ -108,13 +108,18 @@ public class DemoController {
   @RequestMapping("/board/*.do")
   public String board(@RequestParam(value = "an", required = false) Integer articleNo, HttpServletRequest req, HttpSession session, Model model) {
     if (articleNo != null) {
-      LOGGER.debug("articleNo : "+articleNo);
+      LOGGER.debug("articleNo : " + articleNo);
 
       HashMap articlePageModel = service.selectArticleById(articleNo);
+      List<HashMap> replyList = service.selectReplyByArticleNo(articleNo);
 
-      articlePageModel.forEach((k,v) -> LOGGER.debug("key : " + k + ", value : " + v));
-      LOGGER.debug("content test : "+articlePageModel.get("article_content"));
+      if (replyList.size()>0) {
+        replyList.get(replyList.size() - 1).forEach((k, v) -> LOGGER.debug("key : " + k + ", value : " + v));
+      }
+//      LOGGER.debug("content test : "+articlePageModel.get("article_content"));
       model.addAttribute("articlePageModel", articlePageModel);
+      model.addAttribute("replyList", replyList);
+      model.addAttribute("replySize", replyList.size());
 
       return "main_area/pages/articlePage";
     } else {
@@ -142,6 +147,15 @@ public class DemoController {
 //    return "main_area/lists/"+result;
     // todo: redirect 위치 url뒤에서 두번째 깊이의 스트링 선택하는 메소드 구현하기
     return "redirect:/board/" + "free" + ".do";
+  }
+
+  @RequestMapping(value = "/board/**/postRep.do", method = RequestMethod.POST)
+  public String postRep(@RequestParam HashMap<String, String> replyMap, HttpServletRequest req) {
+
+    replyMap.forEach((k, v) -> LOGGER.debug("key : " + k + ", value : " + v));
+    service.insertReply(replyMap);
+    String formerUri = req.getHeader("referer");
+    return "redirect:" + formerUri;
   }
 
   // for test
