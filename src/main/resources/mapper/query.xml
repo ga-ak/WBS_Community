@@ -69,6 +69,7 @@
              member
         WHERE reply.article_no = #{articleNO}
           AND reply.member_no = member.member_no
+        ORDER BY reply_no
     </select>
 
     <!--	insert-->

@@ -81,13 +81,13 @@
       <input type="hidden" name="article_no" value="${articlePageModel.article_no}" }>
       <input type="hidden" name="member_no" value="${loginMember.member_no}" }>
       <input type="hidden" name="reply_ip" value="<%=request.getRemoteAddr()%>" }>
-      <%--      <input type="hidden" name="reply_pno" value="" }>--%>
+      <input type="hidden" name="reply_pno" id="reply_pno" value="" }>
       <input type="submit" value="댓글 달기">
     </form>
   </div>
   <script>
     let myEditor;
-    let thisEvent;
+    let target;
     ClassicEditor
         .create(document.querySelector('#reply_editor'), {
           language: 'ko'
@@ -100,8 +100,13 @@
           console.error(error);
         });
 
-    $('.reply_rereply').on('click', () => {
+    $('.reply_rereply').on('click', (event) => {
       // todo : 클릭한 후에 wrapper의 아이디 출력하기
+      target = $(event.target).parents('.reply_wrapper');
+      target.after($('.reply_post'));
+      let targetId = target.attr('id');
+      targetId = targetId.slice(targetId.indexOf('_')+1, targetId.length);
+      $('#reply_pno').val(targetId);
     })
 
   </script>

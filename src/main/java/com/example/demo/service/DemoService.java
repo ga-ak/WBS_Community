@@ -16,102 +16,129 @@ import java.util.Stack;
 @Service
 public class DemoService {
 
-    @Autowired
-    DemoMapper mapper;
+  @Autowired
+  DemoMapper mapper;
 
-    public List<String> selectAllId() {
-        return mapper.selectAllId();
+  public List<String> selectAllId() {
+    return mapper.selectAllId();
+  }
+
+  public List<HashMap<String, Integer>> selectAllRep() {
+
+    List<HashMap<String, Integer>> result = new ArrayList<>();
+    List<HashMap<String, Integer>> oriArray = mapper.selectAllRep();
+    Stack<HashMap<String, Integer>> stack = new Stack<>();
+
+    System.out.println(oriArray);
+
+
+    // 부모 댓글만 모두 stack 에 담아준다
+    for (int i = oriArray.size() - 1; i >= 0; i--) {
+      HashMap thisRep = oriArray.get(i);
+      if (thisRep.get("rep_parent") == null) {
+        stack.push(thisRep);
+        oriArray.remove(i);
+      }
     }
 
-    public List<HashMap<String, Integer>> selectAllRep() {
+    System.out.println(stack);
 
-        List<HashMap<String, Integer>> result = new ArrayList<>();
-        List<HashMap<String, Integer>> oriArray = mapper.selectAllRep();
-        Stack<HashMap<String, Integer>> stack = new Stack<>();
+    while (stack.size() > 0) {
 
-        System.out.println(oriArray);
+      HashMap<String, Integer> parentRep = stack.pop();
+      result.add(parentRep);
 
-
-        // 부모 댓글만 모두 stack 에 담아준다
-        for (int i = oriArray.size() - 1; i >= 0; i--) {
-            HashMap thisRep = oriArray.get(i);
-            if (thisRep.get("rep_parent") == null) {
-                stack.push(thisRep);
-                oriArray.remove(i);
-            }
+      for (int i = oriArray.size() - 1; i >= 0; i--) {
+        HashMap thisRep = oriArray.get(i);
+        if (parentRep.get("rep_id") == thisRep.get("rep_parent")) {
+          stack.push(thisRep);
+          oriArray.remove(i);
         }
+      }
+      System.out.println(stack);
+    }
 
-        System.out.println(stack);
 
-        while (stack.size() > 0) {
+    return result;
+  }
 
-            HashMap<String, Integer> parentRep = stack.pop();
-            result.add(parentRep);
+  public List<MemberVO> selectAllMember() {
+    return mapper.selectAllMember();
+  }
 
-            for (int i = oriArray.size() - 1; i >= 0; i--) {
-                HashMap thisRep = oriArray.get(i);
-                if (parentRep.get("rep_id") == thisRep.get("rep_parent")) {
-                    stack.push(thisRep);
-                    oriArray.remove(i);
-                }
-            }
-            System.out.println(stack);
+  public MemberVO selectLogin(MemberVO member) {
+    MemberVO result = mapper.selectLogin(member);
+    if (result.getMember_isDeleted() == 1) {
+      result = null;
+    }
+    return result;
+  }
+
+  public List<ArticleVO> selectArticleByBoardName(String boardName) {
+    return mapper.selectArticleByBoardName(boardName);
+  }
+
+  public HashMap selectArticleById(Integer articleNo) {
+    return mapper.selectArticleById(articleNo);
+  }
+
+  public List<HashMap> selectReplyByArticleNo(Integer articleNo) {
+    List<HashMap> result = new ArrayList<>();
+    List<HashMap> tempList = mapper.selectReplyByArticleNo(articleNo);
+    Stack<HashMap> stack = new Stack();
+
+    for (int i = tempList.size() - 1; i >= 0; i--) {
+      HashMap thisRep = tempList.get(i);
+      if (thisRep.get("reply_pno") == null || thisRep.get("reply_pno").equals("")) {
+        stack.push(thisRep);
+        tempList.remove(i);
+      }
+    }
+
+    while (stack.size() > 0) {
+      HashMap parentRep = stack.pop();
+      result.add(parentRep);
+
+      for (int i = tempList.size() - 1; i >= 0; i--) {
+        HashMap thisRep = tempList.get(i);
+        if (parentRep.get("reply_no").equals(thisRep.get("reply_pno"))) {
+          stack.push(thisRep);
+          tempList.remove(i);
         }
-
-
-        return result;
+      }
     }
 
-    public List<MemberVO> selectAllMember() {
-        return mapper.selectAllMember();
+    return result;
+  }
+
+  public int insertMember(MemberVO member) {
+    return mapper.insertMember(member);
+  }
+
+  public int insertArticle(MemberVO loginMember, HashMap<String, String> articleMap, HttpServletRequest req) {
+    ArticleVO article = new ArticleVO();
+
+    int article_no = mapper.selectBoardIdByName(articleMap.get("board_name"));
+    String article_ip = req.getLocalAddr();
+
+    // set board_no
+    article.setBoard_no(article_no);
+    // set member_no
+    article.setMember_no(loginMember.getMember_no());
+    // set article_name
+    article.setArticle_name(articleMap.get("article_name"));
+    // set article_content
+    article.setArticle_content(articleMap.get("content"));
+    // set article_ip
+    article.setArticle_ip(article_ip);
+
+    return mapper.insertArticle(article);
+  }
+
+  public int insertReply(HashMap replyMap) {
+    if (replyMap.get("reply_pno").equals("")) {
+      replyMap.put("reply_pno", null);
     }
-
-    public MemberVO selectLogin(MemberVO member) {
-        MemberVO result = mapper.selectLogin(member);
-        if (result.getMember_isDeleted() == 1) {
-            result = null;
-        }
-        return result;
-    }
-
-    public List<ArticleVO> selectArticleByBoardName(String boardName) {
-        return mapper.selectArticleByBoardName(boardName);
-    }
-
-    public HashMap selectArticleById(Integer articleNo) {
-        return mapper.selectArticleById(articleNo);
-    }
-
-    public List<HashMap> selectReplyByArticleNo(Integer articleNo) {
-        return mapper.selectReplyByArticleNo(articleNo);
-    }
-
-    public int insertMember(MemberVO member) {
-        return mapper.insertMember(member);
-    }
-
-    public int insertArticle(MemberVO loginMember, HashMap<String, String> articleMap, HttpServletRequest req) {
-        ArticleVO article = new ArticleVO();
-
-        int article_no = mapper.selectBoardIdByName(articleMap.get("board_name"));
-        String article_ip = req.getLocalAddr();
-
-        // set board_no
-        article.setBoard_no(article_no);
-        // set member_no
-        article.setMember_no(loginMember.getMember_no());
-        // set article_name
-        article.setArticle_name(articleMap.get("article_name"));
-        // set article_content
-        article.setArticle_content(articleMap.get("content"));
-        // set article_ip
-        article.setArticle_ip(article_ip);
-
-        return mapper.insertArticle(article);
-    }
-
-    public int insertReply(HashMap replyMap) {
-
-        return mapper.insertReply(replyMap);
-    }
+    return mapper.insertReply(replyMap);
+  }
 }
