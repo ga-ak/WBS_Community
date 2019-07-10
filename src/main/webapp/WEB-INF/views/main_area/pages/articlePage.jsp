@@ -103,6 +103,8 @@
     $('.reply_rereply').on('click', (event) => {
       // todo : 클릭한 후에 wrapper의 아이디 출력하기
       target = $(event.target).parents('.reply_wrapper');
+      console.log(event.target);
+      console.log(target);
       target.after($('.reply_post'));
       let targetId = target.attr('id');
       targetId = targetId.slice(targetId.indexOf('_')+1, targetId.length);

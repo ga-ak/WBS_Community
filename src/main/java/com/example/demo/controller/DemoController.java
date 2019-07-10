@@ -32,14 +32,6 @@ public class DemoController {
     return "main";
   }
 
-  @RequestMapping("/rep.do")
-  public String repTest(Model model) {
-    List<HashMap<String, Integer>> repList = service.selectAllRep();
-
-    model.addAttribute("repList", repList);
-    return "repTest";
-  }
-
   @RequestMapping(value = "/join.do", method = RequestMethod.POST)
   public String join(@ModelAttribute MemberVO member) {
     service.insertMember(member);
